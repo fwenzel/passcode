@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="app-components/brick.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body>
+
+    <x-layout id="app">
+      <x-appbar>
+        <header>
+          PASSCODE
+        </header>
+      </x-appbar>
+
+      <section>
+        <x-deck>
+          <x-card id="home">
+            <a href="#game" class="button">Play!</a>
+          </x-card>
+
+          <x-card id="game">
+            <div id="word"></div>
+
+            <div id="tries"></div>
+            <div id="used"></div>
+
+            <div id="keyboard">
+            </div>
+            <aside>&larr; swipe! &rarr;</aside>
+          </x-card>
+
+          <x-card id="fin">
+            <h1>You won/lost!</h1>
+            <a href="#game" class="button">Play again!</a>
+          </x-card>
+        </x-deck>
+      </section>
+    </x-layout>
+
+    <script type="text/javascript" src="app-components/brick.js"></script>
+    <script type="text/javascript" src="js/lib/zepto.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+</html>
