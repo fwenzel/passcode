@@ -2,7 +2,7 @@
 
 (function() {
 
-// XXX need an actual word list
+// Fallback word list. Will be replaced from JSON.
 var words = [
     'question',
     'president',
@@ -13,6 +13,7 @@ var words = [
     'universe'
 ];
 
+// Home page stories.
 var stories = [
     'The night watchman accidentally locked you in at work. You need a passcode to get out!',
     'You want to go to the hottest club in town. But you need a passcode to get in!',
@@ -21,40 +22,43 @@ var stories = [
 
 // The current game state.
 var state = {
-    tries: 0,
+    tries: 0,  // Default: 10
     word: '',  // word: HOUSE
     letters: []  // Letters guessed: ['S', 'H', 'X']
 }
 
 var game = {
     init: function() {
-        var rndStory = Math.floor(Math.random() * stories.length);
-        $('#story').text(stories[rndStory]);
-    },
+        game.showRandomStory();
 
-    start: function() {
-        state.tries = 10;
-
-        state.letters = [];
-
-        console.log(state); // For dev
-
-        if (!($('#keyboard .ltr').length)) {  // Render on-screen keyboard
+        // Render on-screen keyboard
+        if (!($('#keyboard .ltr').length)) {
             var div = document.querySelector('div');
             for (var i = 0; i < 26; i++) {
                 var ltr = String.fromCharCode(65 + i);
                 $('#keyboard').append($('<button data-ltr="' + ltr + '" class="ltr">' + ltr + '</button>'));
             }
         }
+
+        // Build word list
+        $.getJSON('../data/words.json', function(data) {
+            words = data;
+        });
+    },
+
+    start: function() {
+        state.tries = $('#tries progress').get(0).max;
+        state.letters = [];
+
+        // Letters may previously have been hidden.
         $('#keyboard .ltr').show();
 
         game.render();
-
         $('#game').get(0).show();
     },
 
     render: function() {
-        $('#tries').text(state.tries + ' tries left');
+        $('#tries progress').get(0).value = state.tries;
 
         var visible = '';  // visible word: H__S_
         for (var letter of state.word) {
@@ -107,6 +111,11 @@ var game = {
     chooseRandomWord: function() {
         var rndWord = Math.floor(Math.random() * words.length);
         state.word = words[rndWord].toUpperCase();
+    },
+
+    showRandomStory: function() {
+        var rndStory = Math.floor(Math.random() * stories.length);
+        $('#story').text(stories[rndStory]);
     }
 };
 
@@ -114,24 +123,29 @@ var game = {
 $(function() {
     game.init();
 
-    // Hook up all buttons
-    $('#home .button').on('click', function(e) {
+    $('#keyboard, .button').on('click', function(e) {
         e.preventDefault();
+    })
+
+    $('#home .button').on('click', function(e) {
         game.showWordpicker();
     });
 
     $('#startrnd').on('click', function(e) {
-        e.preventDefault();
         game.chooseRandomWord();
         game.start();
     });
 
-    $('#wordpicker input').on('keyup', function() {
-        this.value = this.value.toUpperCase().replace(/[^A-Z]/, '');
+    $('#wordpicker input').on('keyup', function(e) {
+        if (e.keyCode === 13) {
+            $(this).blur();
+            $('#pickthis').click();
+        } else {
+            this.value = this.value.toUpperCase().replace(/[^A-Z]/, '');
+        }
     });
 
     $('#pickthis').on('click', function(e) {
-        e.preventDefault();
         var word = $('#wordpicker input').get(0).value;
         if (word) {
             state.word = word;
@@ -139,15 +153,12 @@ $(function() {
         }
     });
 
-    $('#fin .button').click(function(e) {
-        e.preventDefault();
-        game.init();
+    $('#fin .button').on('click', function(e) {
+        game.showRandomStory();
         $('#home').get(0).show();
     });
 
-    $('#keyboard').click(function(e) {
-        e.preventDefault();
-
+    $('#keyboard').on('click', function(e) {
         var target = $(e.target);
         if (target.hasClass('ltr')) {
             game.checkLetter(target.data('ltr'));

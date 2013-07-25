@@ -51,7 +51,7 @@ x-layout {
 }
 
 #keyboard {
-    margin: 0 auto;
+    margin: 3em auto 0;
     max-width: 90%;
     overflow: scroll;
     white-space: nowrap;
@@ -77,6 +77,12 @@ x-layout {
     #game aside {
         display: none;
     }
+}
+
+#tries {
+    bottom: 1em;
+    position: absolute;
+    width: 100%;
 }
 
 .button {

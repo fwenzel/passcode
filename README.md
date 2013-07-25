@@ -7,6 +7,7 @@ A variant of the well-known game "hangman".
 Thanks:
 
 * to *subtlepatterns* for the [background pattern](http://subtlepatterns.com/bo-play/) (CC by-nc-sa).
+* to Charles Kay Ogden for his [basic words list](http://en.wikipedia.org/wiki/Basic_English).
 
 ## License
 
