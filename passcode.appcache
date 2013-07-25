@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# v1 2013-07-25
+
+CACHE:
+index.html
+favicon.ico
+app-components/brick.css
+app-components/brick.js
+app-components/OpenSans-SemiBold.ttf
+css/app.css
+js/lib/zepto.min.js
+js/app.js
+img/bo_play_pattern.png
+data/words.json

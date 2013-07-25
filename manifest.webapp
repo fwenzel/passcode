@@ -12,6 +12,7 @@
     "name": "Fred Wenzel",
     "url": "http://fredericiana.com"
   },
+  "appcache_path": "/passcode.appcache",
   "installs_allowed_from": ["*"],
   "default_locale": "en"
 }
