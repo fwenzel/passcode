@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v1 2013-07-25
+# v2 2013-07-25
 
 CACHE:
 index.html
@@ -11,4 +11,5 @@ css/app.css
 js/lib/zepto.min.js
 js/app.js
 img/bo_play_pattern.png
-data/words.json
+data/simple.json
+data/awl.json

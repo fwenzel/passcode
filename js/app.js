@@ -41,9 +41,12 @@ var game = {
         }
 
         // Build word list
-        $.getJSON('../data/words.json', function(data) {
-            words = data;
-        });
+        for (var list of ['simple', 'awl']) {
+            words = [];
+            $.getJSON('../data/' + list + '.json', function(data) {
+                words = words.concat(data);
+            });
+        }
     },
 
     start: function() {
