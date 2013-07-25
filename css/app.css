@@ -36,6 +36,7 @@ x-layout {
     display: block;
     font-size: 120%;
     margin: 1em auto;
+    max-width: 400px;
     width: 90%;
 }
 
