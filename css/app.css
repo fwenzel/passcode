@@ -74,7 +74,7 @@ x-layout {
         overflow: visible;
         white-space: normal;
     }
-    #game aside {
+    #keyboard aside {
         display: none;
     }
 }

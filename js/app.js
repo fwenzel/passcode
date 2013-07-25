@@ -36,7 +36,7 @@ var game = {
             var div = document.querySelector('div');
             for (var i = 0; i < 26; i++) {
                 var ltr = String.fromCharCode(65 + i);
-                $('#keyboard').append($('<button data-ltr="' + ltr + '" class="ltr">' + ltr + '</button>'));
+                $('#keys').append($('<button data-ltr="' + ltr + '" class="ltr">' + ltr + '</button>'));
             }
         }
 
@@ -51,7 +51,7 @@ var game = {
         state.letters = [];
 
         // Letters may previously have been hidden.
-        $('#keyboard .ltr').show();
+        $('.ltr').show();
 
         game.render();
         $('#game').get(0).show();
