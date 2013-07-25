@@ -13,6 +13,12 @@ var words = [
     'universe'
 ];
 
+var stories = [
+    'The night watchman accidentally locked you in at work. You need a passcode to get out!',
+    'You want to go to the hottest club in town. But you need a passcode to get in!',
+    'You found a suitcase full of money, but you need a passcode to open it!'
+];
+
 // The current game state.
 var state = {
     tries: 0,
@@ -21,11 +27,13 @@ var state = {
 }
 
 var game = {
+    init: function() {
+        var rndStory = Math.floor(Math.random() * stories.length);
+        $('#story').text(stories[rndStory]);
+    },
+
     start: function() {
         state.tries = 10;
-
-        var rndWord = Math.floor(Math.random() * words.length);
-        state.word = words[rndWord].toUpperCase();
 
         state.letters = [];
 
@@ -41,6 +49,8 @@ var game = {
         $('#keyboard .ltr').show();
 
         game.render();
+
+        $('#game').get(0).show();
     },
 
     render: function() {
@@ -54,8 +64,7 @@ var game = {
 
         // End of game?
         if (visible.indexOf('_') === -1) {
-            $('#fin h1').text('You won!');
-            $('#fin').get(0).show();
+            game.win();
         } else {
             $('#word').text(visible);
         }
@@ -72,29 +81,77 @@ var game = {
             state.tries -= 1;
         }
         if (state.tries === 0) {
-            $('#fin h1').text('You lost!');
-            $('#fin').get(0).show();
+            game.lose();
         } else {
             game.render();
         }
+    },
+
+    win: function() {
+        $('#fin h1').text('You won!');
+        $('#fin p b').text(state.word);
+        $('#fin').get(0).show();
+    },
+
+    lose: function() {
+        $('#fin h1').text('You lost!');
+        $('#fin p b').text(state.word);
+        $('#fin').get(0).show();
+    },
+
+    showWordpicker: function() {
+        $('#wordpicker input').get(0).value = '';
+        $('#wordpicker').get(0).show();
+    },
+
+    chooseRandomWord: function() {
+        var rndWord = Math.floor(Math.random() * words.length);
+        state.word = words[rndWord].toUpperCase();
     }
 };
 
 
 $(function() {
-    $('#home .button, #fin .button').click(function(e) {
+    game.init();
+
+    // Hook up all buttons
+    $('#home .button').on('click', function(e) {
         e.preventDefault();
+        game.showWordpicker();
+    });
+
+    $('#startrnd').on('click', function(e) {
+        e.preventDefault();
+        game.chooseRandomWord();
         game.start();
-        $('#game').get(0).show();
+    });
+
+    $('#wordpicker input').on('keyup', function() {
+        this.value = this.value.toUpperCase().replace(/[^A-Z]/, '');
+    });
+
+    $('#pickthis').on('click', function(e) {
+        e.preventDefault();
+        var word = $('#wordpicker input').get(0).value;
+        if (word) {
+            state.word = word;
+            game.start();
+        }
+    });
+
+    $('#fin .button').click(function(e) {
+        e.preventDefault();
+        game.init();
+        $('#home').get(0).show();
     });
 
     $('#keyboard').click(function(e) {
+        e.preventDefault();
+
         var target = $(e.target);
         if (target.hasClass('ltr')) {
             game.checkLetter(target.data('ltr'));
         }
-    
-        e.preventDefault();
     });
 });
 

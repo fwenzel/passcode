@@ -22,7 +22,16 @@
       <section>
         <x-deck>
           <x-card id="home">
+            <p id="story"></p>
             <a href="#game" class="button">Play!</a>
+          </x-card>
+
+          <x-card id="wordpicker">
+            <p>Let's get started!</p>
+            <a href="#game" class="button" id="startrnd">Play a random word!</a>
+            <p>or have a friend...</p>
+            <input type="text" placeholder="enter a custom word">
+            <a href="#game" class="button" id="pickthis">Play this word!</a>
           </x-card>
 
           <x-card id="game">
@@ -38,6 +47,7 @@
 
           <x-card id="fin">
             <h1>You won/lost!</h1>
+            <p>The passcode was <b>...</b></p>
             <a href="#game" class="button">Play again!</a>
           </x-card>
         </x-deck>
