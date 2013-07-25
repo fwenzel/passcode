@@ -6,7 +6,7 @@ A variant of the well-known game "hangman".
 
 Thanks:
 
-* to *subtlepatterns* for the background pattern (CC by-nc-sa).
+* to *subtlepatterns* for the [background pattern](http://subtlepatterns.com/bo-play/) (CC by-nc-sa).
 
 ## License
 
