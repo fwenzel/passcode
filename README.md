@@ -1,6 +1,15 @@
 # Passcode
 
+![passcode logo](./logo.png)
+
 A variant of the well-known game "hangman".
+
+## Screenshots
+![](./screenshot1.jpg)
+
+![](./screenshot2.jpg)
+
+![](./screenshot3.jpg)
 
 ## Acknowledgments
 
