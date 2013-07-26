@@ -25,7 +25,32 @@ x-layout {
 
 #story {
     line-height: 125%;
-    margin: 2em .5em;
+    max-height: 60%;
+    max-width: 400px;
+    margin: 2em auto 0;
+    overflow: scroll;
+    padding: 0 .5em;
+    position: relative;
+}
+#story.long:before {
+    content: '↑';
+    font-size: 60%;
+    position: absolute;
+    right: .1em;
+    top: 0;
+}
+#story.long:after {
+    content: '↓';
+    font-size: 60%;
+    position: absolute;
+    right: .1em;
+    top: 2em;
+}
+
+#home .button {
+    bottom: 2em;
+    left: 0;
+    margin: 2em auto 0;
 }
 
 #wordpicker {

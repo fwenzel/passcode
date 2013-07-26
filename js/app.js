@@ -13,7 +13,7 @@ var words = [
     'universe'
 ];
 
-// Home page stories.
+// Fallback home page stories. Will be replaced from JSON.
 var stories = [
     'The night watchman accidentally locked you in at work. You need a passcode to get out!',
     'You want to go to the hottest club in town. But you need a passcode to get in!',
@@ -29,8 +29,6 @@ var state = {
 
 var game = {
     init: function() {
-        game.showRandomStory();
-
         // Render on-screen keyboard
         if (!($('#keyboard .ltr').length)) {
             var div = document.querySelector('div');
@@ -47,6 +45,12 @@ var game = {
                 words = words.concat(data);
             });
         }
+
+        // Collect stories.
+        $.getJSON('../data/stories.json', function(data) {
+            stories = data;
+            game.showRandomStory();
+        });
     },
 
     start: function() {
@@ -118,7 +122,10 @@ var game = {
 
     showRandomStory: function() {
         var rndStory = Math.floor(Math.random() * stories.length);
-        $('#story').text(stories[rndStory]);
+        var story = $('#story');
+        story.text(stories[rndStory]);
+        // Show scroll hint?
+        story.toggleClass('long', story[0].scrollTopMax);
     }
 };
 
@@ -128,13 +135,14 @@ $(function() {
 
     $('#keyboard, .button').on('click', function(e) {
         e.preventDefault();
+        $(this).blur();
     })
 
     $('#home .button').on('click', function(e) {
         game.showWordpicker();
     });
 
-    $('#startrnd').on('click', function(e) {
+    $('#startrnd').on('click', function() {
         game.chooseRandomWord();
         game.start();
     });
@@ -148,17 +156,12 @@ $(function() {
         }
     });
 
-    $('#pickthis').on('click', function(e) {
+    $('#pickthis').on('click', function() {
         var word = $('#wordpicker input').get(0).value;
         if (word) {
             state.word = word;
             game.start();
         }
-    });
-
-    $('#fin .button').on('click', function(e) {
-        game.showRandomStory();
-        $('#home').get(0).show();
     });
 
     // Keyboard click or (on desktop) keyevent
@@ -173,6 +176,11 @@ $(function() {
         if (letter.match(/[A-Z]/)) {
             $('#keyboard .ltr[data-ltr=' + letter + ']').click();
         }
+    });
+
+    $('#fin .button').on('click', function() {
+        game.showRandomStory();
+        $('#home').get(0).show();
     });
 });
 
