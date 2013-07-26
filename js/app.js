@@ -161,10 +161,17 @@ $(function() {
         $('#home').get(0).show();
     });
 
+    // Keyboard click or (on desktop) keyevent
     $('#keyboard').on('click', function(e) {
         var target = $(e.target);
         if (target.hasClass('ltr')) {
             game.checkLetter(target.data('ltr'));
+        }
+    });
+    $(document).on('keyup', function(e) {
+        var letter = String.fromCharCode(e.keyCode).toUpperCase();
+        if (letter.match(/[A-Z]/)) {
+            $('#keyboard .ltr[data-ltr=' + letter + ']').click();
         }
     });
 });
