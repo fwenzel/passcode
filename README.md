@@ -20,7 +20,7 @@ Thanks:
 * to Charles Kay Ogden for his [basic words list](http://en.wikipedia.org/wiki/Basic_English).
 * to Averil Coxhead for the [Academic Word List](http://en.wikipedia.org/wiki/Academic_word_list).
 
-*Note:* Both word lists were filtered to omit words with fewer than 4 letters.
+*Note:* Both word lists were filtered to omit words with fewer than 4 letters. Also note that the Academic Word List has Birtish spelling ("- ise"). Pull requests, of course, welcome.
 
 ## License
 
